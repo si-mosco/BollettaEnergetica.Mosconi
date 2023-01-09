@@ -16,7 +16,6 @@ namespace BollettaEnergetica.Mosconi
         private double _consumo;
         private double _tasse;
         private double _perctassa;
-        private double _prezzotot;
 
         //costruttori
         public string Id
@@ -28,7 +27,7 @@ namespace BollettaEnergetica.Mosconi
             private set
             {
                 //controllo 6 cifre
-                if (value != null)
+                if (value.Length==6&& !String.IsNullOrWhiteSpace(value))
                     _id = value;
             }
         }
@@ -93,17 +92,6 @@ namespace BollettaEnergetica.Mosconi
             set
             {
                 _perctassa = value;
-            }
-        }
-        public double PrezzoTotale
-        {
-            get
-            {
-                return _prezzotot;
-            }
-            private set
-            {
-                _prezzotot = ((Prezdistribuzione + Prezunita) * Consumo) +Tasse;
             }
         }
 
@@ -189,6 +177,56 @@ namespace BollettaEnergetica.Mosconi
             Prezdistribuzione = prezzodistribuzione;
             Consumo = consumo;
             Perctassa = percentualetassa;
+        }
+
+        public double PrezzoTot()
+        {
+            if (Prezdistribuzione!=-1 && Prezunita != -1 && Consumo != -1 && Tasse != -1)
+                return ((Prezdistribuzione + Prezunita) * Consumo) + Tasse;
+            else
+                throw new Exception("Invalid parameters");
+        }
+
+        public string Confronto(BollettaEnergetica b1)
+        {
+            if (!this.Equals(b1))
+            {
+                double be1 = b1.Prezdistribuzione + b1.Prezunita + b1.Tasse;
+                double be2 = this.Prezdistribuzione + this.Prezunita + this.Tasse;
+
+                if (be1 > be2)
+                    return this.ToString();
+                else if (be2 < be1)
+                    return b1.ToString();
+                else
+                    return "Uguali";
+            }
+            else
+                throw new Exception("Invalid parameters");
+        }
+
+        public void IncrementaUnitaEnergetica(double Percentuale)
+        {
+            if (Percentuale>0)
+                Prezunita = (Prezunita * Percentuale / 100) + Prezunita;
+        }
+
+        public void IncrementaUnitaDistribuzione(double Percentuale)
+        {
+            if (Percentuale > 0)
+                Prezdistribuzione = (Prezdistribuzione * Percentuale / 100) + Prezdistribuzione;
+        }
+
+        public void DecrementaUnitaEnergetica(double Percentuale)
+        {
+            if (Percentuale < 0)
+                Prezunita = Prezunita - (Prezunita * Percentuale / 100);
+        }
+
+        public void DecrementaUnitaDistribuzione(double Percentuale)
+        {
+            if (Percentuale < 0)
+                Prezdistribuzione = Prezdistribuzione - (Prezdistribuzione * Percentuale / 100);
         }
     }
 }
