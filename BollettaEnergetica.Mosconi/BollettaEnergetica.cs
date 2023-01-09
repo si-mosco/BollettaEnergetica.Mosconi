@@ -145,29 +145,31 @@ namespace BollettaEnergetica.Mosconi
         {
             string code = "";
 
-            Random q = new Random(0-2);
-            Random r = new Random(48-58);
-            Random t = new Random(97 - 123);
+            Random q = new Random();
 
             for (int i=0; i<6; i++)
             {
-                char a;
-                int n = q.Next();
+                char a= (char)32;
+                int n = q.Next(0,2);
                 if (n == 0)
                 {
-                    int o = r.Next();
+                    int o = q.Next(48, 58);
                     a = (char)o;
                 }
-                else
+                else if (n==1)
                 {
-                    int o = t.Next();
+                    int o = q.Next(97, 123);
                     a = (char)o;
                 }
-
-                code += a;
+                if (a != 32)
+                    code += a;
+                else
+                    i--;
             }
-
-            return code;
+            if (code!="")
+                return code;
+            else
+                throw new Exception("Error");
         }
 
         public void Modifica(string id, double prezzounita, double prezzodistribuzione, double consumo, double percentualetassa)
