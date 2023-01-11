@@ -16,6 +16,7 @@ namespace BollettaEnergetica.Mosconi
         private double _consumo;
         private double _tasse;
         private double _perctassa;
+        private static Random rx = new Random();
 
         //costruttori
         public string Id
@@ -145,20 +146,18 @@ namespace BollettaEnergetica.Mosconi
         {
             string code = "";
 
-            Random q = new Random();
-
             for (int i=0; i<6; i++)
             {
                 char a= (char)32;
-                int n = q.Next(0,2);
+                int n = rx.Next(0,2);
                 if (n == 0)
                 {
-                    int o = q.Next(48, 58);
+                    int o = rx.Next(48, 58);
                     a = (char)o;
                 }
                 else if (n==1)
                 {
-                    int o = q.Next(97, 123);
+                    int o = rx.Next(97, 123);
                     a = (char)o;
                 }
                 if (a != 32)
