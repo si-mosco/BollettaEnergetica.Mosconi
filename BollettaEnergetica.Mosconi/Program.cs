@@ -23,6 +23,11 @@ namespace Energia
 
             bolletta.IncrementaUnitaDistribuzione(5);
             Console.WriteLine(bolletta.ToString());
+
+            string cod1 = bolletta.CodiceGenerale();
+            string cod2 = bollettina.CodiceGenerale();
+
+            Console.WriteLine($"cod1: {cod1} - cod2: {cod2}");
         }
     }
 }

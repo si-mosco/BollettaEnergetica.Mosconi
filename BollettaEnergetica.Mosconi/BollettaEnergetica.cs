@@ -123,7 +123,7 @@ namespace Energia
         public BollettaEnergetica(string id, double prezzounita, double prezzodistribuzione) : this(id, prezzounita, prezzodistribuzione, -1, -1)
         {
         }
-        public BollettaEnergetica() : this("vuoto1", -1, -1, -1, -1)
+        public BollettaEnergetica() : this("vuoto1", 0,0,0,0)
         {
         }
 
