@@ -71,17 +71,9 @@ namespace Energia
             {
                 return _tasse;
             }
-            set
+            private set
             {
-                try
-                {
-                    _tasse = ((Prezdistribuzione+Prezunita)*Consumo) * Perctassa / 100;
-                }
-                catch
-                {
-                    throw new Exception("Invalid parameters");
-                }
-                
+                _tasse = value;
             }
         }
         public double Perctassa
@@ -108,6 +100,7 @@ namespace Energia
             Prezdistribuzione = prezzodistribuzione;
             Consumo = consumo;
             Perctassa = percentualetassa;
+            Tasse = ((Prezdistribuzione + Prezunita) * Consumo) * Perctassa / 100;
         }
 
         public BollettaEnergetica(string id, double prezzounita, double prezzodistribuzione, double consumo) : this(id, prezzounita, prezzodistribuzione, consumo, -1)
@@ -221,13 +214,13 @@ namespace Energia
         public void DecrementaUnitaEnergetica(double Percentuale)
         {
             if (Percentuale < 0)
-                Prezunita = Prezunita - (Prezunita * Percentuale / 100);
+                Prezunita = Prezunita - (Prezunita * -Percentuale / 100);
         }
 
         public void DecrementaUnitaDistribuzione(double Percentuale)
         {
             if (Percentuale < 0)
-                Prezdistribuzione = Prezdistribuzione - (Prezdistribuzione * Percentuale / 100);
+                Prezdistribuzione = Prezdistribuzione - (Prezdistribuzione * -Percentuale / 100);
         }
     }
 }
