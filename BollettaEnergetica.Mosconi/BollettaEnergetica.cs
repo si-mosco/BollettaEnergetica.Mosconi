@@ -28,8 +28,10 @@ namespace Energia
             private set
             {
                 //controllo 6 cifre
-                if (value.Length==6&& !String.IsNullOrWhiteSpace(value))
+                if (value.Length == 6 && !String.IsNullOrWhiteSpace(value))
                     _id = value;
+                else
+                    throw new Exception("Id non valido (non è di 6 cifre)");
             }
         }
         public double Prezunita
@@ -40,7 +42,10 @@ namespace Energia
             }
             set
             {
-                _prezunita = value;
+                if (value >= 0)
+                    _prezunita = value;
+                else
+                    throw new Exception("Prezzo unità non valido");
             }
         }
         public double Prezdistribuzione
@@ -51,7 +56,10 @@ namespace Energia
             }
             set
             {
-                _prezdistribuzione = value;
+                if (value >= 0)
+                    _prezdistribuzione = value;
+                else
+                    throw new Exception("Prezzo distribuzione non valido");
             }
         }
         public double Consumo
@@ -62,7 +70,10 @@ namespace Energia
             }
             set
             {
-                _consumo = value;
+                if (value >= 0)
+                    _consumo = value;
+                else
+                    throw new Exception("Consumo non valido");
             }
         }
         public double Tasse
@@ -84,7 +95,10 @@ namespace Energia
             }
             set
             {
-                _perctassa = value;
+                if (value >= 0)
+                    _perctassa = value;
+                else
+                    throw new Exception("Percentuale tassa non valido");
             }
         }
 
