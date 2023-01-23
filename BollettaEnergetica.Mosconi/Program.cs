@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BollettaEnergetica.Mosconi
+namespace Energia
 {
     internal class Program
     {
